@@ -42,8 +42,8 @@ Render the result to the HTML template.
 Publish the website in Localhost.
 
 ## PROGRAM:
-```
 sgapp
+```html
 
 <html>
     <head>
@@ -72,9 +72,10 @@ sgapp
         </form>
     </body>
 </html>
+```
 
 views.py 
-
+```python
 from django.shortcuts import render
 
 def  cumchurn_area(request):
@@ -93,10 +94,10 @@ def  cumchurn_area(request):
         {'Customers_count': Customers_count, 'Initial_Customer': Initial_Customer, 'area': area}
     )
 
-
+```
 
 urls.py
-
+```python
 from django.contrib import admin
 from django.urls import path
 from sgapp import views
@@ -104,7 +105,7 @@ from sgapp import views
 urlpatterns = [
     path('', views. cumchurn_area, name='cumchurn_area'),
 ]
-
+```
 ## OUTPUT - SERVER SIDE:
 
 ![alt text](terminal.png)
