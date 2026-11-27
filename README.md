@@ -42,13 +42,74 @@ Render the result to the HTML template.
 Publish the website in Localhost.
 
 ## PROGRAM:
+```
+sgapp
 
+<html>
+    <head>
+        <title>Math</title>
+    </head>
+    <body>
+        <h1>SELVANMANO.S (26000969)</h1>
+        <h2>CHURN RATE CALCULATON</h2>
+
+        <form method="POST">
+          {% csrf_token %}
+            
+            <label>Customers lost count:</label>
+            <input type="number" value="{{ Customers_count }}" name="Customers_count" step="any">
+            <br><br>
+            
+            <label>Initial Customers count:</label>
+            <input type="number" value="{{ Initial_Customer }}" name="Initial_Customer" step="any">
+            <br><br>
+            
+            <input type="submit" value="calculate">
+            <br><br>
+            
+            <label>Churn Rate count:</label>
+            <input type="number"  value="{{ area }}" >
+        </form>
+    </body>
+</html>
+
+views.py 
+
+from django.shortcuts import render
+
+def  cumchurn_area(request):
+    
+    Customers_count = float(request.POST.get('Customers_count', '0'))
+    Initial_Customer = float(request.POST.get('Initial_Customer', '0'))
+    area =( ( Initial_Customer - Customers_count ) / Initial_Customer ) * 100 if request.method == 'POST' and Initial_Customer else 0
+
+    print("Customers lost count =", Customers_count)
+    print("Initial customers count =", Initial_Customer)
+    print("Churn Rate =", area)
+
+    return render(
+        request,
+        'sgapp/sam.html',
+        {'Customers_count': Customers_count, 'Initial_Customer': Initial_Customer, 'area': area}
+    )
+
+
+
+urls.py
+
+from django.contrib import admin
+from django.urls import path
+from sgapp import views
+
+urlpatterns = [
+    path('', views. cumchurn_area, name='cumchurn_area'),
+]
 
 ## OUTPUT - SERVER SIDE:
 
-
+![alt text](terminal.png)
 ## OUTPUT - WEBPAGE:
 
-
+![alt text](webserver.png)
 ## RESULT:
 The the web page to calculate Churn Rate using server-side scripts is created successfully.
